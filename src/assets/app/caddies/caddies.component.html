@@ -1,0 +1,23 @@
+<h2>Caddies</h2>
+
+<table class="table" *ngIf="this.caddyService.getCurrentCaddy().items.values()">
+    <tr>
+        <th>ID</th>
+ 
+        <th>Name</th>
+ 
+        <th>Quantity</th>
+
+        <th>Prix</th>
+    </tr>
+    <tr *ngFor="let pi of this.caddyService.getCurrentCaddy().items.values()">
+        <td>{{ pi.product.id }}</td>
+        <td>{{ pi.product.name }}</td>
+        <td>{{ pi.quantity }}</td>
+        <td>{{ pi.price }}</td>
+    </tr>
+    <tr>
+        <td colspan="3">Total</td>
+        <td> {{ this.caddyService.getTotal() }}</td>
+    </tr>
+</table>

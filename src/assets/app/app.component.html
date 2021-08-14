@@ -1,0 +1,61 @@
+<div class="container-fluid m-1">
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+      <div class="navbar-brand clickable" (click)="onSelectedProducts()">ECOM</div>
+  
+      <button class="navbar-toggler" data-toggle="collapse" data-target="#collapse-menu-id">
+        <span  class="navbar-toggler-icon"></span>
+      </button>
+  
+      <div class="collapse navbar-collapse" id="collapse-menu-id">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item clickable">
+            <a (click)="onSelectedProducts()" class="nav-link">Home</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Go To</a>
+            <div class="dropdown-menu">
+              <div class="dropdown-divider"></div>
+              <a (click)="onSelectedProducts()" class="dropdown-item clickable">Home</a>
+              <a  (click)="onPromoProducts()" class="dropdown-item clickable" >Promotion</a>
+              <a  (click)="onDispoProducts()" class="dropdown-item clickable">Disponibles</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a [routerLink]="'caddy'" class="nav-link">Caddies</a>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav pull-right">
+          <li class="nav-item clickable" >
+            <a (click)="onLogin()" class="nav-link"> {{ caddyService.getCurrentCaddy().name }} | {{ caddyService.getCurrentCaddy().items.size }} </a>
+          </li>
+          <li class="nav-item clickable" *ngIf="!authService.isAuthenticated">
+            <a (click)="onLogin()" class="nav-link">login</a>
+          </li>
+          <li class="nav-item clickable" *ngIf="authService.isAuthenticated">
+            <a (click)="onLogout()" class="nav-link">logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+<div class="row m-1">
+  <div class="col-md-3">
+    <div *ngIf="categories" >
+        <ul *ngFor="let c of categories" class="list-group" >
+            <li (click)="getProductsByCategory(c)"  class="list-group-item clickable m-1" [ngClass]="currentCategory==c?'active':''">
+              {{ c.name }}
+            </li>
+        </ul>
+    </div>
+  </div>
+
+  <div class="col-md-9">
+      <router-outlet></router-outlet>
+  </div>
+
+</div>
+  
+  </div>

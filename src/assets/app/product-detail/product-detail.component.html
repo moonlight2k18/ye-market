@@ -1,0 +1,65 @@
+<div *ngIf="mode==0">
+    <div  *ngIf="currentProduct">
+        <div class=" card heighted ">
+            <h5 class="card-header text-center">Fiche Produit: {{currentProduct.name}} <span class="ms-auto">edit</span>
+            </h5>
+            
+
+           <div class=" row">
+                <div class="card col-md-7">
+                    <div class="card-body row">
+
+                        <img height="100" src="{{ this.catService.host+'/photoProduct/'+currentProduct.id+'?ts='+getTS()}}"
+                            alt="{{ currentProduct.name }}">
+                        <div *ngIf="authService.isAdmin()" class="mt-2">
+                            <button (click)="onEditPhoto()" class="btn btn-sm btn-secondary mb-1">
+                                <span>edit</span>
+                            </button>
+                            <div *ngIf="editPhoto">
+                                <input type="file" (change)="onSelectedFile($event)">
+                                <button class="btn btn-success m-1" (click)="uploadPhoto()">Upload</button>
+                                {{ progress }}
+                            </div>
+                        </div>
+        
+        
+        
+                        <span *ngIf="currentProduct.available">
+                            <img src="../../assets/images/available.png" width="50" class="img-thumbnail img-circle" alt="">
+                        </span>
+                        <span *ngIf="currentProduct.promotion">
+                            <img src="../../assets/images/promo.jfif" width="50" class="img-thumbnail img-circle" alt="">
+                        </span>
+                        <span *ngIf="currentProduct.selected">
+                            <img src="../../assets/images/selected.jfif" width="50" class="img-thumbnail img-circle" alt="">
+                        </span>
+        
+        
+        
+                        <div>
+                            <form action="" #f="ngForm" (ngSubmit)="onAddProductToCaddy(currentProduct)">
+                                <label for="">Quantity: </label>
+                                <input type="number" name="quantity" [(ngModel)]="currentProduct.quantity" min="0"
+                                    style="width: 40px;">
+                                <button>
+                                    <img src="../../assets/images/caddy.png" alt="" width="25">
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+    
+               <div class="card col">
+                <div class="card-body">
+                    <div>Description: {{ currentProduct.description }}</div>
+    
+                    <div>
+                        <label for="">Price : {{ currentProduct.currentPrice|number:'0.2' }}</label>
+                    </div>
+                </div>
+               </div>
+            
+           </div>
+
+
+        </div>
